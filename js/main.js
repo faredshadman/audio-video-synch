@@ -1,4 +1,5 @@
 const video = document.getElementById("video");
+const waveform = document.getElementById("waveform");
 var wavesurfer = WaveSurfer.create({
   container: "#waveform",
   waveColor: "#ddd",
@@ -24,6 +25,10 @@ var wavesurfer = WaveSurfer.create({
 wavesurfer.load(
   "audios/radio_resp-2022-12-30-11-00-26_Pri_Baltika-2022-12-30-11-59-13.mp3"
 );
+waveform.addEventListener("click", function (e) {
+  if (!video.readyState) return;
+  video.currentTime = wavesurfer.getCurrentTime();
+});
 
 wavesurfer.on("audioprocess", function () {
   if (wavesurfer.getCurrentTime() !== video.currentTime) {
